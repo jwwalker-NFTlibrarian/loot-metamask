@@ -1,0 +1,23 @@
+{
+    "name": "@jwwalker-NFTlibrarian/loot-metamask",
+    "version": "1.0.0",
+    "private": true,
+    "description": "MetaMask SDK implementation on pure-javascript",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/jwwalker-NFTlibrarian/loot-metamask.git"
+    },
+    "license": "ISC",
+    "main": "src/index.js",
+    "files": [
+      "dist/"
+    ],
+    "scripts": {
+      "start": "serve .",
+      "allow-scripts": "echo 'n/a'"
+    },
+    "dependencies": {
+      "@metamask/sdk": "^0.12.2",
+      "serve": "13.0.2"
+    }
+  }

@@ -1,0 +1,50 @@
+<script src="/node_modules/@metamask/sdk/dist/browser/iife/metamask-sdk.js"></script>
+<script>
+  let isConnected = false;
+  let accounts = [];
+
+  const sdk = new MetaMaskSDK.MetaMaskSDK({
+    dappMetadata: {
+      name: "Pure JS example",
+      url: window.location.host,
+    },
+    logging: {
+      sdk: false,
+    }
+  });
+
+  function updateButton() {
+    const buttonText = isConnected 
+      ? 'Connected with 0x...' + accounts[0].slice(-4)
+      : 'Connect';
+    document.getElementById('connectButton').innerText = buttonText;
+  }
+
+  function connectOrDisconnect() {
+    if (!isConnected) {
+      ethereum
+        .request({ method: 'eth_requestAccounts' })
+        .then((res) => {
+          accounts = res;
+          isConnected = true;
+          updateButton();
+          console.log('Wallet connected', res);
+        })
+        .catch((e) => console.error('Connection error', e));
+    } else {
+      // Handle wallet disconnect logic here
+      // Since MetaMask does not provide a direct way to disconnect via their API,
+      // you can reset the state and update the UI accordingly
+      isConnected = false;
+      accounts = [];
+      updateButton();
+      console.log('Wallet disconnected');
+    }
+  }
+
+  // Initial UI update
+  window.addEventListener('DOMContentLoaded', (event) => {
+    updateButton();
+  });
+</script>
+<button id="connectButton" onclick="connectOrDisconnect()">Connect</button>
